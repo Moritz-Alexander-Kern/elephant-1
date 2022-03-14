@@ -882,7 +882,7 @@ class InstantaneousRateTest(unittest.TestCase):
 
         sampling_period = 0.1 * pq.ms
 
-        trial_list = StationaryPoissonProcess(
+        trial_list = StatPP(
             rate=rate, t_start=t_start, t_stop=t_stop
         ).generate_n_spiketrains(n_spiketrains)
 

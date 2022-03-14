@@ -945,7 +945,10 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
                              sigma=str(kernel.sigma),
                              invert=kernel.invert)
 
-
+    rate = neo.AnalogSignal(signal=rate,
+                            sampling_period=sampling_period,
+                            units=pq.Hz, t_start=t_start, t_stop=t_stop,
+                            kernel=kernel_annotation)
 
     if border_correction:
         sigma = kernel.sigma.simplified.magnitude
@@ -965,10 +968,7 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
                 rate[:, i] *= len(spiketrain) /\
                               (np.mean(rate[:, i]).magnitude * duration)
 
-    return neo.AnalogSignal(signal=rate,
-                            sampling_period=sampling_period,
-                            units=pq.Hz, t_start=t_start, t_stop=t_stop,
-                            kernel=kernel_annotation)
+    return rate
 
 
 @deprecated_alias(binsize='bin_size')
