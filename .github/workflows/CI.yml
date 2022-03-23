@@ -1,4 +1,4 @@
-# This workflow will setup GitHub-hosted runners and install the required dependencies for elephant tests.
+# This workflow will set up GitHub-hosted runners and install the required dependencies for elephant tests.
 # On a pull requests and on pushes to master it will run different tests for elephant.
 
 name: tests
@@ -319,3 +319,9 @@ jobs:
          run: |
             cd doc
             make html
+
+       - name: Upload HTML
+         uses: actions/upload-artifact@v3
+         with:
+            name: docs-html
+            path: doc/_build/html # doc/_build/html
