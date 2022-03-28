@@ -4,7 +4,7 @@
 name: tests
 # define events that trigger workflow 'tests'
 on:
-  workflow_dispatch: # enables manual triggering of workflow
+  workflow_dispatch: # enables manual triggering of workflow for all
     inputs:
       logLevel:
         description: 'Log level'
