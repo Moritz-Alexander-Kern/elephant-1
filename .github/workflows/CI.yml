@@ -89,6 +89,7 @@ jobs:
           pip install -r requirements/requirements-extras.txt
           pip install pytest-cov coveralls
           pip install -e .
+          pip install --upgrade certifi
 
       - name: Build
         run: |
@@ -142,6 +143,7 @@ jobs:
         pip install pytest==6.2.5 # hotfix for pytest 7.0.0, remove once fixed
         pip install pytest-cov coveralls
         pip install .
+        pip install --upgrade certifi
 
     - name: List packages
       run: |
@@ -201,6 +203,7 @@ jobs:
             pip install -r requirements/requirements-extras.txt
             pip install pytest-cov coveralls
             pip install -e .
+            pip install --upgrade certifi
 
         - name: List packages
           run: |
@@ -257,6 +260,7 @@ jobs:
           pip install -r requirements/requirements-extras.txt
           pip install pytest-cov coveralls
           pip install -e .
+          pip install --upgrade certifi
 
       - name: List packages
         run: |
@@ -308,6 +312,7 @@ jobs:
             pip install -e .[extras]
             # run notebooks
             sed -i -E "s/nbsphinx_execute *=.*/nbsphinx_execute = 'always'/g" doc/conf.py
+            pip install --upgrade certifi
 
        - name: List packages
          run: |
