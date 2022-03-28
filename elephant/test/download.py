@@ -5,6 +5,7 @@ from urllib.request import urlretrieve
 from zipfile import ZipFile
 
 from tqdm import tqdm
+import ssl
 
 ELEPHANT_TMP_DIR = Path(tempfile.gettempdir()) / "elephant"
 
@@ -45,6 +46,7 @@ def check_integrity(filepath, md5):
 
 
 def download(url, filepath=None, checksum=None, verbose=True):
+    ssl._create_default_https_context = ssl._create_unverified_context
     if filepath is None:
         filename = url.split('/')[-1]
         filepath = ELEPHANT_TMP_DIR / filename
