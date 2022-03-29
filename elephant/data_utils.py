@@ -2,6 +2,7 @@ import hashlib
 import tempfile
 import warnings
 import ssl
+
 from elephant import _get_version
 from pathlib import Path
 from urllib.request import urlretrieve, urlopen
@@ -114,6 +115,7 @@ def download_elephant_data(repo_path, filepath=None, checksum=None,
         filepath : pathlib.Path
             Path to downloaded files.
 
+
         Notes
         -----
         The default URL always points to elephant-data. Please
@@ -164,6 +166,7 @@ def download_elephant_data(repo_path, filepath=None, checksum=None,
 
             warnings.warn(f"Data URL:{default_url}, error: {http_error}."
                           f"{error.reason}")
+
 
     url = f"{getenv('ELEPHANT_DATA_URL', default_url)}/{repo_path}"
 
