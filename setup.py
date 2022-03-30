@@ -54,7 +54,7 @@ else:
             '-fopenmp', '-std=gnu++17'])
 
 setup(
-    name="elephant",
+    name="elephant-test",
     version=version,
     packages=['elephant', 'elephant.test'],
     include_package_data=True,
