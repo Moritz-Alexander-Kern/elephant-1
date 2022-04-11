@@ -134,11 +134,11 @@ jobs:
     - name: Install dependencies
       run: |
         conda update conda
+        pip install --upgrade pip
         conda env update --file requirements/environment-tests.yml --name base
 
         activate base
         conda install -c conda-forge openmpi
-        pip install -r requirements/requirements-tests.txt
         pip install pytest==6.2.5 # hotfix for pytest 7.0.0, remove once fixed
         pip install pytest-cov coveralls
         pip install .
