@@ -192,6 +192,7 @@ jobs:
               conda install pytest-cov coveralls
               conda install -c conda-forge mpi4py
               conda install -c conda-forge pyopencl
+              pip install -e .
           - name: Test with pytest
             shell: bash
             run: |
