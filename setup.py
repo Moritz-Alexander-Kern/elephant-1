@@ -28,18 +28,19 @@ if platform.system() == "Windows":
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-fopenmp', '/std:c++17'])
 elif platform.system() == "Darwin":
-    fim_module = Extension(
-        name='elephant.spade_src.fim',
-        sources=['elephant/spade_src/src/fim.cpp'],
-        include_dirs=['elephant/spade_src/include'],
-        language='c++',
-        libraries=['pthread', 'omp'],
-        extra_compile_args=[
-            '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
-            '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
-            '-Xpreprocessor',
-            '-fopenmp', '-std=gnu++17'])
+    pass
+#     fim_module = Extension(
+#         name='elephant.spade_src.fim',
+#         sources=['elephant/spade_src/src/fim.cpp'],
+#         include_dirs=['elephant/spade_src/include'],
+#         language='c++',
+#         libraries=['pthread', 'omp'],
+#         extra_compile_args=[
+#             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
+#             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
+#             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
+#             '-Xpreprocessor',
+#             '-fopenmp', '-std=gnu++17'])
 else:
     fim_module = Extension(
         name='elephant.spade_src.fim',
