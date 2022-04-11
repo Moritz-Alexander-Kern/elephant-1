@@ -108,6 +108,7 @@ jobs:
 
   # install dependencies with conda and run tests with pytest
   test-conda:
+    name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -323,6 +324,7 @@ jobs:
 
   # install dependencies for the documentation and build .html
   docs:
+       name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
        runs-on: ${{ matrix.os }}
        strategy:
         matrix:
