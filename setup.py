@@ -60,7 +60,7 @@ setup(
     name="elephant",
     version=version,
     packages=['elephant', 'elephant.test'],
-    include_package_data=True,
+    include_package_data=False,
     ext_modules=[fim_module],
     install_requires=install_requires,
     extras_require=extras_require,
