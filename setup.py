@@ -3,7 +3,7 @@ import os
 import platform
 
 from setuptools import setup, Extension
-print(platform.system)
+print(platform.system())
 with open(os.path.join(os.path.dirname(__file__),
                        "elephant", "VERSION")) as version_file:
     version = version_file.read().strip()
@@ -41,8 +41,8 @@ elif platform.system() == "Darwin":
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
             '-Xpreprocessor',
-            '-fopenmp', '-std=gnu++17'],
-        extra_link_args=["-stdlib=libc++", "-mmacosx-version-min=10.9"])
+            '-fopenmp', '-std=libstdc++'])
+        # extra_link_args=["-stdlib=libc++", "-mmacosx-version-min=10.9"])
 else:
     fim_module = Extension(
         name='elephant.spade_src.fim',
