@@ -112,7 +112,7 @@ jobs:
     strategy:
       matrix:
         # OS [ubuntu-latest, macos-latest, windows-latest]
-        os: [ubuntu-latest, macos-10.15]
+        os: [ubuntu-latest]
 
       # do not cancel all in-progress jobs if any matrix job fails
       fail-fast: false
@@ -154,6 +154,48 @@ jobs:
       run: |
         activate base
         pytest --cov=elephant --import-mode=importlib
+
+  conda:
+        name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
+        runs-on: ${{ matrix.os }}
+        strategy:
+          # do not cancel all in-progress jobs if any matrix job fails
+          fail-fast: false
+          matrix:
+            os: ["macos-10.15"]
+            python-version: ["3.9"]
+        steps:
+          - name: Get current year-month
+            id: date
+            run: echo "::set-output name=date::$(date +'%Y-%m')"
+
+          - uses: actions/checkout@v2
+
+          - name: Cache conda
+            uses: actions/cache@v2
+            with:
+              path: ~/conda_pkgs_dir
+              key: ${{ runner.os }}-conda-${{hashFiles('requirements/environment.yml') }}-${{ steps.date.outputs.date }}
+
+          - uses: conda-incubator/setup-miniconda@v2
+            with:
+              auto-update-conda: true
+              python-version: ${{ matrix.python-version }}
+              activate-environment: test
+              environment-file: requirements/environment-tests.yml
+              auto-activate-base: false
+              use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+          - name: Install dependencies
+            shell: bash
+            run: | 
+              conda install pytest
+              conda install pytest-cov coveralls
+              conda install -c conda-forge mpi4py
+              conda install -c conda-forge pyopencl
+          - name: Test with pytest
+            shell: bash
+            run: |
+              pytest --cov=elephant
 
   # install dependencies with pip and run tests with pytest
   test-pip:
