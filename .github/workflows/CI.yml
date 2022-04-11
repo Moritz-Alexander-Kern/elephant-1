@@ -185,6 +185,7 @@ jobs:
               environment-file: requirements/environment-tests.yml
               auto-activate-base: true
               use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+
           - name: Install dependencies
             shell: bash
             run: | 
@@ -193,11 +194,14 @@ jobs:
               conda install -c conda-forge mpi4py
               conda install -c conda-forge pyopencl
               pip install -e .
+
           - name: List packages
+            shell: bash
             run: |
               pip list
               conda list
               python --version
+
            - name: Test with pytest
              shell: bash
              run: |
