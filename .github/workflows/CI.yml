@@ -155,7 +155,7 @@ jobs:
         activate base
         pytest --cov=elephant --import-mode=importlib
 
-  conda:
+  test-darwin:
         name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
         runs-on: ${{ matrix.os }}
         strategy:

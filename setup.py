@@ -42,25 +42,26 @@ elif platform.system() == "Darwin":
 #             '-Xpreprocessor',
 #             '-fopenmp', '-std=gnu++17'])
 else:
-    print(platform.system())
-    fim_module = Extension(
-        name='elephant.spade_src.fim',
-        sources=['elephant/spade_src/src/fim.cpp'],
-        include_dirs=['elephant/spade_src/include'],
-        language='c++',
-        libraries=['pthread', 'gomp'],
-        extra_compile_args=[
-            '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
-            '-Weffc++', '-Wunused-result', '-Werror',
-            '-fopenmp', '-std=gnu++17'])
+    pass
+    # print(platform.system())
+    # fim_module = Extension(
+    #     name='elephant.spade_src.fim',
+    #     sources=['elephant/spade_src/src/fim.cpp'],
+    #     include_dirs=['elephant/spade_src/include'],
+    #     language='c++',
+    #     libraries=['pthread', 'gomp'],
+    #     extra_compile_args=[
+    #         '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
+    #         '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
+    #         '-Weffc++', '-Wunused-result', '-Werror',
+    #         '-fopenmp', '-std=gnu++17'])
 
 setup(
     name="elephant",
     version=version,
     packages=['elephant', 'elephant.test'],
     include_package_data=True,
-    ext_modules=[fim_module],
+    #ext_modules=[fim_module],
     install_requires=install_requires,
     extras_require=extras_require,
     author="Elephant authors and contributors",
