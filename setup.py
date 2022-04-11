@@ -61,7 +61,7 @@ setup(
     version=version,
     packages=['elephant', 'elephant.test'],
     include_package_data=True,
-    # ext_modules=[fim_module],
+    ext_modules=[fim_module],
     install_requires=install_requires,
     extras_require=extras_require,
     author="Elephant authors and contributors",
