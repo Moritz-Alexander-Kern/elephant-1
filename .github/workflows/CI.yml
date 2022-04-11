@@ -183,7 +183,7 @@ jobs:
               python-version: ${{ matrix.python-version }}
               activate-environment: test
               environment-file: requirements/environment-tests.yml
-              auto-activate-base: false
+              auto-activate-base: true
               use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
           - name: Install dependencies
             shell: bash
@@ -193,10 +193,15 @@ jobs:
               conda install -c conda-forge mpi4py
               conda install -c conda-forge pyopencl
               pip install -e .
-          - name: Test with pytest
-            shell: bash
+          - name: List packages
             run: |
-              pytest --cov=elephant
+              pip list
+              conda list
+              python --version
+           - name: Test with pytest
+             shell: bash
+             run: |
+               pytest --cov=elephant
 
   # install dependencies with pip and run tests with pytest
   test-pip:
