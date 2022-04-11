@@ -28,7 +28,7 @@ if platform.system() == "Windows":
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-fopenmp', '/std:c++17'])
 elif platform.system() == "Darwin":
-    pass
+    print(platform.system())
 #     fim_module = Extension(
 #         name='elephant.spade_src.fim',
 #         sources=['elephant/spade_src/src/fim.cpp'],
@@ -42,6 +42,7 @@ elif platform.system() == "Darwin":
 #             '-Xpreprocessor',
 #             '-fopenmp', '-std=gnu++17'])
 else:
+    print(platform.system())
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
