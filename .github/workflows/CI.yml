@@ -202,9 +202,9 @@ jobs:
               conda list
               python --version
 
-           - name: Test with pytest
-             shell: bash
-             run: |
+          - name: Test with pytest
+            shell: bash
+            run: |
                pytest --cov=elephant
 
   # install dependencies with pip and run tests with pytest
