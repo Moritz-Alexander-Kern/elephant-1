@@ -140,7 +140,7 @@ jobs:
 
         activate base
         conda install -c conda-forge openmpi
-        pip install pytest==6.2.5 # hotfix for pytest 7.0.0, remove once fixed
+        pip install pytest #==6.2.5 # hotfix for pytest 7.0.0, remove once fixed
         pip install pytest-cov coveralls
         pip install .
 
@@ -195,7 +195,8 @@ jobs:
               conda env list
               conda install pytest
               conda install pytest-cov coveralls
-              conda install -c conda-forge mpi4py
+              conda install -c conda-forge openmpi
+              # conda install -c conda-forge mpi4py
               pip install -e .
 
           - name: List packages
