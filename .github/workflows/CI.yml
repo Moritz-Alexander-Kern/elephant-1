@@ -195,7 +195,7 @@ jobs:
               conda install pytest
               conda install pytest-cov coveralls
               conda install -c conda-forge mpi4py
-              conda install -c conda-forge pyopencl
+              # conda install -c conda-forge pyopencl
               pip install -e .
 
           - name: List packages
@@ -324,7 +324,7 @@ jobs:
 
   # install dependencies for the documentation and build .html
   docs:
-       name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
+       name: docs (${{ matrix.os }})
        runs-on: ${{ matrix.os }}
        strategy:
         matrix:
