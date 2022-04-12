@@ -20,64 +20,51 @@ for extra in ['extras', 'docs', 'tests', 'tutorials', 'cuda', 'opencl']:
     with open('requirements/requirements-{0}.txt'.format(extra)) as fp:
         extras_require[extra] = fp.read()
 
-if platform.system() == "Windows":
-    fim_module = Extension(
-        name='elephant.spade_src.fim',
-        optional=True,
-        sources=['elephant/spade_src/src/fim.cpp'],
-        include_dirs=['elephant/spade_src/include'],
-        language='c++',
-        libraries=[],
-        extra_compile_args=[
-            '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-fopenmp', '/std:c++17'])
-elif platform.system() == "Darwin":
-    # For mac, ensure extensions are built for macos 10.9 when compiling on a
-    # 10.9 system or above, overriding distuitls behaviour which is to target
-    # the version that python was built for. This may be overridden by setting
-    # MACOSX_DEPLOYMENT_TARGET before calling setup.py
-    if 'MACOSX_DEPLOYMENT_TARGET' not in os.environ:
-        current_system = LooseVersion(platform.mac_ver()[0])
-        python_target = LooseVersion(
-            get_config_var('MACOSX_DEPLOYMENT_TARGET'))
-        if python_target < '10.9' and current_system >= '10.9':
-            os.environ['MACOSX_DEPLOYMENT_TARGET'] = '10.9'
-
-    fim_module = Extension(
-        name='elephant.spade_src.fim',
-        optional=True,
-        sources=['elephant/spade_src/src/fim.cpp'],
-        include_dirs=['elephant/spade_src/include'],
-        language='c++',
-        libraries=['pthread', 'omp'],
-        extra_compile_args=[
-            '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
-            '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
-            '-Xpreprocessor',
-            '-fopenmp', '-std=gnu++17'])
-
-
-else:
-    fim_module = Extension(
-        name='elephant.spade_src.fim',
-        optional=True,
-        sources=['elephant/spade_src/src/fim.cpp'],
-        include_dirs=['elephant/spade_src/include'],
-        language='c++',
-        libraries=['pthread', 'gomp'],
-        extra_compile_args=[
-            '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
-            '-Weffc++', '-Wunused-result', '-Werror',
-            '-fopenmp', '-std=gnu++17'])
+# if platform.system() == "Windows":
+#     fim_module = Extension(
+#         name='elephant.spade_src.fim',
+#         optional=True,
+#         sources=['elephant/spade_src/src/fim.cpp'],
+#         include_dirs=['elephant/spade_src/include'],
+#         language='c++',
+#         libraries=[],
+#         extra_compile_args=[
+#             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
+#             '-Dfim_EXPORTS', '-fopenmp', '/std:c++17'])
+# elif platform.system() == "Darwin":
+#     fim_module = Extension(
+#         name='elephant.spade_src.fim',
+#         optional=True,
+#         sources=['elephant/spade_src/src/fim.cpp'],
+#         include_dirs=['elephant/spade_src/include'],
+#         language='c++',
+#         libraries=['pthread', 'omp'],
+#         extra_compile_args=[
+#             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
+#             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
+#             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
+#             '-Xpreprocessor',
+#             '-fopenmp', '-std=gnu++17'])
+# else:
+#     fim_module = Extension(
+#         name='elephant.spade_src.fim',
+#         optional=True,
+#         sources=['elephant/spade_src/src/fim.cpp'],
+#         include_dirs=['elephant/spade_src/include'],
+#         language='c++',
+#         libraries=['pthread', 'gomp'],
+#         extra_compile_args=[
+#             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
+#             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
+#             '-Weffc++', '-Wunused-result', '-Werror',
+#             '-fopenmp', '-std=gnu++17'])
 
 setup(
     name="elephant",
     version=version,
     packages=['elephant', 'elephant.test'],
     include_package_data=True,
-    ext_modules=[fim_module],
+    # ext_modules=[fim_module],
     install_requires=install_requires,
     extras_require=extras_require,
     author="Elephant authors and contributors",
