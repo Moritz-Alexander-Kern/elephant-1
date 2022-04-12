@@ -21,7 +21,6 @@ for extra in ['extras', 'docs', 'tests', 'tutorials', 'cuda', 'opencl']:
 if platform.system() == "Windows":
     fim_module = Extension(
         name='elephant.spade_src.fim',
-        optional=True,
         sources=['elephant/spade_src/src/fim.cpp'],
         include_dirs=['elephant/spade_src/include'],
         language='c++',
@@ -32,7 +31,6 @@ if platform.system() == "Windows":
 elif platform.system() == "Darwin":
     fim_module = Extension(
         name='elephant.spade_src.fim',
-        optional=True,
         sources=['elephant/spade_src/src/fim.cpp'],
         include_dirs=['elephant/spade_src/include'],
         language='c++',
@@ -46,7 +44,6 @@ elif platform.system() == "Darwin":
 else:
     fim_module = Extension(
         name='elephant.spade_src.fim',
-        optional=True,
         sources=['elephant/spade_src/src/fim.cpp'],
         include_dirs=['elephant/spade_src/include'],
         language='c++',
