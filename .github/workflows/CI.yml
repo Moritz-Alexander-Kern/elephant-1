@@ -390,4 +390,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: docs-html
-          path: _build/html/ # or path/to/artifact
+          path: doc/_build/html # or path/to/artifact
