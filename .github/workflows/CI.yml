@@ -61,14 +61,14 @@ jobs:
       - name: Get current year-month
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
         run: |
           # create an environment and install everything
           python -m venv ~/test_env
           source ~/test_env/bin/activate
-        uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -83,6 +83,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # create an environment and install everything
+          # python -m venv ~/test_env
           source ~/test_env/bin/activate
 
           python -m pip install --upgrade pip
