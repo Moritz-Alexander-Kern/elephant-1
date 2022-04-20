@@ -64,6 +64,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Python ${{ matrix.python-version }}
+        run: |
+          # create an environment and install everything
+          python -m venv ~/test_env
+          source ~/test_env/bin/activate
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
@@ -79,8 +83,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # create an environment and install everything
-          python -m venv ~/test_env
           source ~/test_env/bin/activate
 
           python -m pip install --upgrade pip
