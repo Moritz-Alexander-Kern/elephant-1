@@ -313,7 +313,7 @@ jobs:
       - name: Test with pytest
         run: |
           activate base
-          pytest --cov=elephant --import-mode=importlib
+          pytest --cov-report= --cov=elephant --import-mode=importlib
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
