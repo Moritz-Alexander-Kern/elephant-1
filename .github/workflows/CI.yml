@@ -108,7 +108,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Cache conda
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/conda_pkgs_dir
           key: ${{ runner.os }}-conda-${{hashFiles('requirements/environment.yml') }}-${{ steps.date.outputs.date }}
@@ -174,7 +174,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ matrix.path }}
           # Look to see if there is a cache hit for the corresponding requirements files
@@ -225,7 +225,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Cache test_env
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           # Look to see if there is a cache hit for the corresponding requirements files
@@ -269,7 +269,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{hashFiles('requirements/environment-tests.yml') }}-${{ steps.date.outputs.date }}
@@ -322,7 +322,7 @@ jobs:
           echo $CONDA/bin >> $GITHUB_PATH
 
       - name: Cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           # Look to see if there is a cache hit for the corresponding requirements files
