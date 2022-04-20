@@ -105,6 +105,11 @@ jobs:
         run: |
           source ~/test_env/bin/activate
           pytest --cov=elephant
+          pip install coveralls
+          coverage run --source=elephant -m pytest
+          coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test-macOS:
     name: conda (${{ matrix.python-version }}, ${{ matrix.os }})
@@ -314,11 +319,6 @@ jobs:
         run: |
           activate base
           pytest --cov=elephant --import-mode=importlib
-          pip install coveralls
-          coverage run --source=elephant -m pytest --import-mode=importlib
-          coveralls --service=github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # install dependencies for the documentation and build .html
   docs:
