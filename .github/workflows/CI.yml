@@ -314,6 +314,10 @@ jobs:
         run: |
           activate base
           pytest --cov=elephant --import-mode=importlib
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   # install dependencies for the documentation and build .html
   docs:
