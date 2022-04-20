@@ -70,6 +70,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           sudo apt install -y libopenmpi-dev openmpi-bin
+          pip install coverage
           pip install mpi4py
           pip install -r requirements/requirements-tests.txt
           pip install -r requirements/requirements.txt
