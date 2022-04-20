@@ -64,29 +64,14 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        run: |
-          # create an environment and install everything
-          python -m venv ~/test_env
-          source ~/test_env/bin/activate
-      - uses: actions/setup-python@v3
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Cache test_env
-        uses: actions/cache@v2
-        with:
-          path: ~/test_env
-          # Look to see if there is a cache hit for the corresponding requirements files
-          # cache will be reset on changes to any requirements or every month
-          key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-tests.txt') }}
-            -${{ hashFiles('**/requirements-extras.txt') }}-${{ hashFiles('setup.py') }} -${{ steps.date.outputs.date }}
+          cache: 'pip'
+          cache-dependency-path: '**/requirements.txt'
 
       - name: Install dependencies
         run: |
-          # create an environment and install everything
-          # python -m venv ~/test_env
-          source ~/test_env/bin/activate
-
           python -m pip install --upgrade pip
           pip install -r requirements/requirements-tests.txt
           pip install -r requirements/requirements.txt
@@ -94,20 +79,13 @@ jobs:
           pip install pytest-cov coveralls
           pip install -e .
 
-      - name: Build
-        run: |
-          source ~/test_env/bin/activate
-          python setup.py install
-
       - name: List packages
         run: |
-          source ~/test_env/bin/activate
           pip list
           python --version
 
       - name: Test with pytest
         run: |
-          source ~/test_env/bin/activate
           pytest --cov=elephant
           pip install coveralls
           coverage run --source=elephant -m pytest
