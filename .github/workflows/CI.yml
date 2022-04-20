@@ -315,7 +315,7 @@ jobs:
           activate base
           pytest --cov=elephant --import-mode=importlib
           pip install coveralls
-          coverage run --source=elephant -m pytest tests/
+          coverage run --source=elephant -m pytest --import-mode=importlib
           coveralls --service=github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
