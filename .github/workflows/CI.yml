@@ -332,7 +332,7 @@ jobs:
           distro: ubuntu18.04
 
           install: |
-            sudo apt install python3
+            apt-get install python3
             python -m pip install --upgrade pip
             pip install -r requirements/requirements-tests.txt
             pip install -r requirements/requirements.txt
