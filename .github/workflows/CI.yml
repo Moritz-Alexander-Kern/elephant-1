@@ -329,11 +329,12 @@ jobs:
         id: runcmd
         with:
           arch: armv7
-          distro: ubuntu18.04
+          distro: fedora_latest
 
           install: |
-            apt-get update -q -y
-            apt-get install -q -y git
+            dnf -y update
+            dnf -y install git which
+            dnf -y install python3
 
 #            python -m pip install --upgrade pip
 #            pip install -r requirements/requirements-tests.txt
