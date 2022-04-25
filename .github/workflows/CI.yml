@@ -335,7 +335,7 @@ jobs:
             dnf -y update
             dnf -y install git which
             dnf -y install python3
-            dnf install python3-pip
+            dnf -y install python3-pip
             pip install elephant
 #            pip install -r requirements/requirements-tests.txt
 #            pip install -r requirements/requirements.txt
