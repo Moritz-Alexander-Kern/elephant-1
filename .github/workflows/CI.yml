@@ -348,18 +348,6 @@ jobs:
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
 
-          # Create an artifacts directory
-          setup: |
-            mkdir -p "${PWD}/artifacts"
-
-          # Mount the artifacts directory as /artifacts in the container
-          dockerRunArgs: |
-            --volume "${PWD}/artifacts:/artifacts"
-
-          # Pass some environment variables to the container
-          env: | # YAML, but pipe character is necessary
-            artifact_name: git-${{ matrix.distro }}_${{ matrix.arch }}
-
           # The shell to run commands with in the container
           shell: /bin/sh
 
@@ -385,17 +373,23 @@ jobs:
                 ;;
             esac
 
-          # Produce a binary artifact and place it in the mounted volume
-          run: |
-            cp $(which git) "/artifacts/${artifact_name}"
-            echo "Produced artifact at /artifacts/${artifact_name}"
+      - name: Set up Python ${3.9}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${3.9}
 
-      - name: Show the artifact
-        # Items placed in /artifacts in the container will be in
-        # ${PWD}/artifacts on the host.
+      - name: install dependencies
         run: |
-          ls -al "${PWD}/artifacts"
+          python -m pip install --upgrade pip
+          pip install -r requirements/requirements-tests.txt
+          pip install -r requirements/requirements.txt
+          pip install -r requirements/requirements-extras.txt
+          pip install pytest-cov coveralls
+          pip install -e .
 
+      - name: test with pytest
+        run: |
+          pytest --cov=elephant
 
   # install dependencies for the documentation and build .html
   docs:
