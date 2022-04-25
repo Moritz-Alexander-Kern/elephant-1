@@ -318,9 +318,9 @@ jobs:
   ##########################
   #  ARM
   ##########################
-  build_job:
+  test-pip-on:
     # The host should always be linux
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
 
     # Run steps on a matrix of 3 arch/distro combinations
@@ -337,7 +337,7 @@ jobs:
             distro: fedora_latest
 
     steps:
-      - uses: actions/checkout@v2.1.0
+      - uses: actions/checkout@v3
       - uses: uraimo/run-on-arch-action@v2
         name: Build artifact
         id: build
