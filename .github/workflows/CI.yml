@@ -336,12 +336,12 @@ jobs:
             dnf -y install git which
             dnf -y install python3
             dnf install python3-pip
-            
-            pip install -r requirements/requirements-tests.txt
-            pip install -r requirements/requirements.txt
-            pip install -r requirements/requirements-extras.txt
-            pip install pytest-cov coveralls
-            pip install -e .
+            pip install elephant
+#            pip install -r requirements/requirements-tests.txt
+#            pip install -r requirements/requirements.txt
+#            pip install -r requirements/requirements-extras.txt
+#            pip install pytest-cov coveralls
+#            pip install -e .
 
           # Set an output parameter `uname` for use in subsequent steps
           run: |
