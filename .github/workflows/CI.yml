@@ -332,13 +332,15 @@ jobs:
           distro: ubuntu18.04
 
           install: |
-            apt-get install python3
-            python -m pip install --upgrade pip
-            pip install -r requirements/requirements-tests.txt
-            pip install -r requirements/requirements.txt
-            pip install -r requirements/requirements-extras.txt
-            pip install pytest-cov coveralls
-            pip install -e .
+            apt-get update -q -y
+            apt-get install -q -y git
+
+#            python -m pip install --upgrade pip
+#            pip install -r requirements/requirements-tests.txt
+#            pip install -r requirements/requirements.txt
+#            pip install -r requirements/requirements-extras.txt
+#            pip install pytest-cov coveralls
+#            pip install -e .
 
           # Set an output parameter `uname` for use in subsequent steps
           run: |
