@@ -337,6 +337,7 @@ jobs:
             dnf -y install python3
             dnf -y install python3-pip
             pip install elephant
+            pip install pytest
 #            pip install -r requirements/requirements-tests.txt
 #            pip install -r requirements/requirements.txt
 #            pip install -r requirements/requirements-extras.txt
@@ -345,36 +346,9 @@ jobs:
 
           # Set an output parameter `uname` for use in subsequent steps
           run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
-
-      - name: Get the output
-        # Echo the `uname` output parameter from the `runcmd` step
-        run: |
-          echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
-
-      - name: Set up Python ${{3.9}}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{3.9}}
-
-      - name: install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements/requirements-tests.txt
-          pip install -r requirements/requirements.txt
-          pip install -r requirements/requirements-extras.txt
-          pip install pytest-cov coveralls
-          pip install -e .
-
-      - name: List packages
-        run: |
-          pip list
-          python --version
-
-      - name: Test with pytest
-        run: |
-          pytest --cov=elephant
+            pip list
+            python --version
+            pytest elephant
 
   # install dependencies for the documentation and build .html
   docs:
