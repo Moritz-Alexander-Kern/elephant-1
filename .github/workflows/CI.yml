@@ -335,6 +335,14 @@ jobs:
           # a GitHub package registry.
           githubToken: ${{ github.token }}
 
+          install: |
+            python -m pip install --upgrade pip
+            pip install -r requirements/requirements-tests.txt
+            pip install -r requirements/requirements.txt
+            pip install -r requirements/requirements-extras.txt
+            pip install pytest-cov coveralls
+            pip install -e .
+
           # Set an output parameter `uname` for use in subsequent steps
           run: |
             uname -a
