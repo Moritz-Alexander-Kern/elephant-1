@@ -337,7 +337,7 @@ jobs:
             distro: fedora_latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.1.0
       - uses: uraimo/run-on-arch-action@v2
         name: Build artifact
         id: build
