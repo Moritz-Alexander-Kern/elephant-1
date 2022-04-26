@@ -361,6 +361,7 @@ jobs:
           run: |
             pip list
             python --version
+            pip install --upgrade pip setuptools wheel
             pip install elephant
             pytest elephant
 
