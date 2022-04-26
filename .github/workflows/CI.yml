@@ -333,6 +333,7 @@ jobs:
 
           install: |
             dnf -y update
+            dnf -y install blas
             dnf -y install git which
             dnf -y install python3.8
             dnf -y install python3-pip
