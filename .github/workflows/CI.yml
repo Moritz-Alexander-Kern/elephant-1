@@ -336,8 +336,7 @@ jobs:
             dnf -y install git which
             dnf -y install python3.8
             dnf -y install python3-pip
-            pip install scipy
-            pip install pytest
+
 #            pip install -r requirements/requirements-tests.txt
 #            pip install -r requirements/requirements.txt
 #            pip install -r requirements/requirements-extras.txt
@@ -348,6 +347,7 @@ jobs:
           run: |
             pip list
             python --version
+            pip install elephant
             pytest elephant
 
   # install dependencies for the documentation and build .html
