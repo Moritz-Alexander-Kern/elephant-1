@@ -38,7 +38,7 @@ elif platform.system() == "Darwin":
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
-            '-Xpreprocessor',
+            '-Xpreprocessor', "-Xclang",
             '-fopenmp', '-std=gnu++17'],
         extra_link_args=['-lomp'])
 elif platform.system() == "Linux":
