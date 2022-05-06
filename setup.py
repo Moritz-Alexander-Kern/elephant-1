@@ -33,14 +33,14 @@ elif platform.system() == "Darwin":
         sources=['elephant/spade_src/src/fim.cpp'],
         include_dirs=['elephant/spade_src/include'],
         language='c++',
-        libraries=['pthread', 'gomp'],
+        libraries=['pthread', 'omp'],
         extra_compile_args=[
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
             '-Xpreprocessor',
             '-fopenmp', '-std=gnu++17'],
-        extra_link_args=["-stdlib=libc++", "-mmacosx-version-min=10.9"])
+        extra_link_args=['-lomp'])
 elif platform.system() == "Linux":
     fim_module = Extension(
         name='elephant.spade_src.fim',
