@@ -39,7 +39,8 @@ elif platform.system() == "Darwin":
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
             '-Xpreprocessor',
-            '-fopenmp', '-std=gnu++17'])
+            '-fopenmp', '-std=gnu++17'],
+        extra_link_args=["-stdlib=libc++", "-mmacosx-version-min=10.9"])
 elif platform.system() == "Linux":
     fim_module = Extension(
         name='elephant.spade_src.fim',
