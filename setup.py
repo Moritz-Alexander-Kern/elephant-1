@@ -36,9 +36,9 @@ elif platform.system() == "Darwin":
         libraries=['pthread', 'omp'],
         extra_compile_args=[
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
+            '-Dfim_EXPORTS', '-O3', '-pedantic',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
-            '-Wno-error=missing-field-initializers', '-Xpreprocessor',
+             '-Xpreprocessor',
             '-fopenmp', '-std=gnu++17'])
 elif platform.system() == "Linux":
     fim_module = Extension(
