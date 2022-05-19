@@ -141,6 +141,7 @@ jobs:
       - name: Install dependencies
         shell: bash -l {0}
         run: |
+          clang --version
           python --version
           conda env list
           conda install pytest
