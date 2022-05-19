@@ -28,6 +28,7 @@ if platform.system() == "Windows":
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-fopenmp', '/std:c++17'])
 elif platform.system() == "Darwin":
+    os.environ["CC"] = "gcc"
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
