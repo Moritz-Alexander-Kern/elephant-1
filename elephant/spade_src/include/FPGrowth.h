@@ -51,7 +51,7 @@
 #include "Logger.h"
 #include "Memory.h"
 #include "SigTerm.h"
-#include "Timer.h"
+// #include "Timer.h"
 #include "Types.h"
 #include "Utils.h"
 
@@ -85,8 +85,8 @@ public:
 		m_memory(65536),
 		m_pThreadMem(nullptr),
 		m_pPattern(nullptr),
-		m_pClosedDetect(nullptr),
-		m_initTime()
+		m_pClosedDetect(nullptr)
+//		m_initTime()
 	{
 #ifdef ALL_PATTERN
 #ifdef PERF_EXT_EXPANSION
@@ -104,9 +104,9 @@ public:
 
 		DataBase db;
 		FrequencyMap frequency;
-		Timer timerSub;
+//		Timer timerSub;
 
-		m_initTime.Start();
+//		m_initTime.Start();
 
 		frequency = getFrequency(transactions);
 
@@ -114,7 +114,7 @@ public:
 		LOG_INFO << "Transactions: " << transactions.size() << std::endl;
 
 		LOG_VERBOSE << "Reducing and sorting transactions ... " << std::flush;
-		timerSub.Start();
+//		timerSub.Start();
 
 		do
 		{
@@ -131,12 +131,12 @@ public:
 			db.push_back(tC);
 		}
 
-		timerSub.Stop();
-		LOG_VERBOSE << "Done after: " << timerSub << std::endl;
+//		timerSub.Stop();
+//		LOG_VERBOSE << "Done after: " << timerSub << std::endl;
 		LOG_VERBOSE << "Items: " << frequency.size() << std::endl;
 		LOG_VERBOSE << "Transactions: " << transactions.size() << std::endl;
 
-		timerSub.Start();
+//		timerSub.Start();
 		m_maxItemCnt = frequency.size();
 
 #ifdef USE_OPENMP
@@ -177,8 +177,8 @@ public:
 
 		m_pClosedDetect = new ClosedDetect(m_maxItemCnt);
 
-		timerSub.Stop();
-		LOG_VERBOSE << "Memory Allocation done after: " << timerSub << std::endl;
+//		timerSub.Stop();
+//		LOG_VERBOSE << "Memory Allocation done after: " << timerSub << std::endl;
 
 		FrequencyMapC F;
 
@@ -215,7 +215,7 @@ public:
 #endif
 		}
 
-		timerSub.Start();
+//		timerSub.Start();
 
 		for (TransactionC& trans : db)
 		{
@@ -250,16 +250,16 @@ public:
 
 		std::sort(std::begin(fF), std::end(fF), [](const RefPair& a, const RefPair& b) { return a.second->Idx() < b.second->Idx(); });
 
-		timerSub.Stop();
-		LOG_VERBOSE << "Sorting done after: " << timerSub << std::endl;
+//		timerSub.Stop();
+//		LOG_VERBOSE << "Sorting done after: " << timerSub << std::endl;
 
 		m_tree = new FPTree(fF, m_pIdx2Id, m_pId2Item, &m_memory);
 
 		for (TransactionC& trans : db)
 			m_tree->Add(trans, 1);
 
-		m_initTime.Stop();
-		LOG_VERBOSE << "Creating Tree done after: " << m_initTime << std::endl;
+//		m_initTime.Stop();
+//		LOG_VERBOSE << "Creating Tree done after: " << m_initTime << std::endl;
 
 #ifdef DEBUG
 		m_tree->PrintTree();
@@ -310,12 +310,12 @@ public:
 
 	const Pattern* Growth()
 	{
-		Timer t;
-		t.Start();
+//		Timer t;
+//		t.Start();
 		if (!growthTop(m_tree)) return nullptr;
 
-		t.Stop();
-		LOG_INFO_EVAL << "\x1B[31mRuntime:\x1B[0m " << t + m_initTime << " - Frequent Item-Sets: " << GetPatternCount() << std::endl;
+//		t.Stop();
+//		LOG_INFO_EVAL << "\x1B[31mRuntime:\x1B[0m " << t + m_initTime << " - Frequent Item-Sets: " << GetPatternCount() << std::endl;
 		return m_pPattern;
 	}
 
@@ -885,14 +885,14 @@ private:
 	Pattern* m_pPattern;
 
 	ClosedDetect* m_pClosedDetect;
-	Timer m_initTime;
+	// Timer m_initTime;
 };
 
 void PostProcessing(const Pattern* pPattern, const std::size_t& maxC, const std::size_t& itemCount, const std::size_t& minPatternLength, const PatternType& winLen, const ItemC* pId2Item, std::vector<const PatternType*>& res)
 {
 	LOG_VERBOSE << "Result Filtering ... " << std::flush;
-	Timer timer;
-	timer.Start();
+//	Timer timer;
+//	timer.Start();
 
 	for (int64_t i = itemCount - 1; i > -1; i--)
 	{
@@ -922,8 +922,8 @@ void PostProcessing(const Pattern* pPattern, const std::size_t& maxC, const std:
 	for (std::size_t i = 0; i < itemCount; i++)
 		cnt += pPattern[i].GetCount();
 
-	timer.Stop();
-	LOG_VERBOSE << "Done after: " << timer << std::endl;
+//	timer.Stop();
+//	LOG_VERBOSE << "Done after: " << timer << std::endl;
 	LOG_INFO << "Reduction: " << cnt << " -> " << res.size() << std::endl;
 }
 
@@ -937,11 +937,11 @@ void ClosedDetection(const FPGrowth& fp, const Pattern* pPattern, std::vector<Pa
 		return;
 	}
 
-	Timer timer;
+//	Timer timer;
 
 	LOG_INFO_EVAL << "Closed Detection ... " << std::flush;
 
-	timer.Start();
+//	timer.Start();
 
 	ClosedDetect cd(itemCount);
 	PatternType* pM = new PatternType[itemCount];
@@ -1066,7 +1066,7 @@ void ClosedDetection(const FPGrowth& fp, const Pattern* pPattern, std::vector<Pa
 	delete[] pItems;
 	delete[] pAdded;
 
-	timer.Stop();
-	LOG_INFO_EVAL << "Done after: " << timer << std::endl;
+//	timer.Stop();
+//	LOG_INFO_EVAL << "Done after: " << timer << std::endl;
 	LOG_INFO << "Closed Pattern: " << closed.size() << std::endl;
 }

@@ -206,11 +206,11 @@ PyObject* fpgrowth(PyObject* self, PyObject* args, PyObject* kwds)
 	int32_t verbose = ToUnderlying(Verbosity::VB_INFO);
 	int32_t threads = 1;
 	Verbosity verbosity;
-	Timer fullTimer;
+//	Timer fullTimer;
 
 	std::map<Py_hash_t, PyObject*> hashMap;
 
-	fullTimer.Start();
+//	fullTimer.Start();
 
 	// ===== Evaluate the Function Arguments ===== //
 	if (!PyArg_ParseTupleAndKeywords(args, kwds, "O|sdIIssIIIII", const_cast<char**>(ckwds), &tracts, &target, &supp, &zmin, &zmax, &report, &algo, &winlen, &maxc, &minneu, &verbose, &threads))
@@ -312,8 +312,8 @@ PyObject* fpgrowth(PyObject* self, PyObject* args, PyObject* kwds)
 	}
 
 	LOG_INFO_EVAL << "Converting Pattern to Python List ... " << std::flush;
-	Timer t;
-	t.Start();
+//	Timer t;
+//	t.Start();
 
 	try
 	{
@@ -349,12 +349,12 @@ PyObject* fpgrowth(PyObject* self, PyObject* args, PyObject* kwds)
 			PyList_SET_ITEM(pyList, idx, pyPatternWSupp);
 		}
 
-		t.Stop();
-		LOG_INFO_EVAL << "Done after: " << t << std::endl;
+//		t.Stop();
+//		LOG_INFO_EVAL << "Done after: " << t << std::endl;
 		LOG_INFO_EVAL << "Memory Usage after Conmversion: " << GetMemString() << std::endl;
 
-		fullTimer.Stop();
-		LOG_INFO_EVAL << " =========  FPGrowth C++ Module End (" << fullTimer << ")  ========= " << std::endl;
+//		fullTimer.Stop();
+//		LOG_INFO_EVAL << " =========  FPGrowth C++ Module End (" << fullTimer << ")  ========= " << std::endl;
 
 		sigRemove();
 		return pyList;
