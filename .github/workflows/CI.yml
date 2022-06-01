@@ -300,7 +300,6 @@ jobs:
           conda env update --file requirements/environment-tests.yml --name base
           activate base
           conda install -c conda-forge openmpi
-          conda install libgcc # fix scipy import error
           pip install -r requirements/requirements-tests.txt
           pip install pytest
           pip install pytest-cov coveralls
@@ -355,7 +354,6 @@ jobs:
           conda env update --file requirements/environment-docs.yml --name base
           conda install -c conda-forge openmpi
           conda install -c conda-forge pandoc
-          conda install libgcc # fix scipy import error
           pip install -e .[extras]
           # run notebooks
           sed -i -E "s/nbsphinx_execute *=.*/nbsphinx_execute = 'always'/g" doc/conf.py
