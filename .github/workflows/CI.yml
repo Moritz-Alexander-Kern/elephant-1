@@ -75,7 +75,8 @@ jobs:
           # Look to see if there is a cache hit for the corresponding requirements files
           # cache will be reset on changes to any requirements or every month
           key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-tests.txt') }}
-            -${{ hashFiles('**/requirements-extras.txt') }}-${{ hashFiles('setup.py') }} -${{ steps.date.outputs.date }}
+            -${{ hashFiles('**/requirements-extras.txt') }}-${{ hashFiles('**/CI.yml') }}-${{ hashFiles('setup.py') }} 
+            -${{ steps.date.outputs.date }}
 
       - name: Install dependencies
         run: |
@@ -299,8 +300,6 @@ jobs:
           conda update conda
           conda env update --file requirements/environment-tests.yml --name base
           activate base
-          conda update libgcc-ng
-          conda update libstdcxx-ng
           conda install -c conda-forge openmpi
           pip install -r requirements/requirements-tests.txt
           pip install pytest
@@ -356,8 +355,6 @@ jobs:
           conda env update --file requirements/environment-docs.yml --name base
           conda install -c conda-forge openmpi
           conda install -c conda-forge pandoc
-          conda update libstdcxx-ng
-          conda update libgcc-ng
           pip install -e .[extras]
           # run notebooks
           sed -i -E "s/nbsphinx_execute *=.*/nbsphinx_execute = 'always'/g" doc/conf.py
