@@ -61,7 +61,7 @@ jobs:
       - name: Get current year-month
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -121,7 +121,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Cache conda
         uses: actions/cache@v3
@@ -183,7 +183,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -233,7 +233,7 @@ jobs:
       - name: Get current year-month
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -282,7 +282,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Cache pip
         uses: actions/cache@v3
@@ -331,7 +331,7 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Add conda to system path
         run: |
