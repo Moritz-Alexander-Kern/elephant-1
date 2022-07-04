@@ -33,7 +33,7 @@ elif platform.system() == "Darwin":
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
-        optional=True,
+        optional=False,
         include_dirs=['elephant/spade_src/include'],
         language='c++',
         libraries=['pthread', 'omp'],
