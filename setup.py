@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os.path
 import platform
-
-import warnings
+import sys
 
 from setuptools import setup, Extension
 from setuptools.command.install import install
@@ -92,10 +91,14 @@ setup_kwargs = {
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Scientific/Engineering']
 }
-# do not compile external modules on darwin
-if platform.system() in ["Windows", "Linux", "Darwin"]:
-    setup_kwargs["ext_modules"] = [fim_module]
 
+if '--nofim' not in sys.argv:
+    # do not compile external modules on darwin
+    if platform.system() in ["Windows", "Linux", "Darwin"]:
+        setup_kwargs["ext_modules"] = [fim_module]
+
+# if '--nofim' in sys.argv:
+#     raise ValueError("Illegal someval!")
 
 # from setuptools.command.install import install
 #
@@ -155,7 +158,10 @@ class CommandMixin(object):
         """
         Semantically, removes extension from setup
         """
-        print("Hello setup")
+        # Use options
+        global nofim
+        nofim = self.nofim  # will be 1 or None
+
         super().run()
 
 class InstallCommand(CommandMixin, install):
