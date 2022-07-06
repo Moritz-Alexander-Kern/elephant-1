@@ -146,7 +146,7 @@ jobs:
           conda env list
           conda install pytest
           conda install pytest-cov coveralls
-          pip install -e .[extras]
+          pip install -e .[extras] --install-option="--nofim"
 
       - name: List packages
         shell: bash -l {0}
