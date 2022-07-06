@@ -60,7 +60,7 @@ References
    :style: unsrt
 
 
-:copyright: Copyright 2014-2020 by the Elephant team, see `doc/authors.rst`.
+:copyright: Copyright 2014-2022 by the Elephant team, see `doc/authors.rst`.
 :license: Modified BSD, see LICENSE.txt for details.
 """
 
@@ -74,8 +74,8 @@ from neo.core.spiketrainlist import SpikeTrainList
 import numpy as np
 import quantities as pq
 import scipy.stats
-from scipy.special import erf
 import scipy.signal
+from scipy.special import erf
 
 import elephant.conversion as conv
 import elephant.kernels as kernels
@@ -604,12 +604,11 @@ def lvr(time_intervals, R=5*pq.ms, with_nan=False):
 def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
                        cutoff=5.0, t_start=None, t_stop=None, trim=False,
                        center_kernel=True, border_correction=False):
-    """
+    r"""
     Estimates instantaneous firing rate by kernel convolution.
 
     Visualization of this function is covered in Viziphant:
     :func:`viziphant.statistics.plot_instantaneous_rates_colormesh`.
-
 
     Parameters
     ----------
@@ -631,6 +630,7 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
         Gaussian kernel is constructed with this width. Automatized calculation
         of the kernel width is not available for other than Gaussian kernel
         shapes.
+
         Note: The kernel width is not adaptive, i.e., it is calculated as
         global optimum across the data.
 
@@ -696,30 +696,24 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
     Raises
     ------
     TypeError
-        If `spiketrain` is not an instance of `neo.SpikeTrain`.
-
-        If `sampling_period` is not a `pq.Quantity`.
-
-        If `sampling_period` is not larger than zero.
-
-        If `kernel` is neither instance of `kernels.Kernel` nor string 'auto'.
-
-        If `cutoff` is neither `float` nor `int`.
-
-        If `t_start` and `t_stop` are neither None nor a `pq.Quantity`.
-
-        If `trim` is not `bool`.
+        *  If `spiketrain` is not an instance of `neo.SpikeTrain`.
+        *  If `sampling_period` is not a `pq.Quantity`.
+        *  If `sampling_period` is not larger than zero.
+        *  If `kernel` is neither instance of `kernels.Kernel` nor string
+           'auto'.
+        *  If `cutoff` is neither `float` nor `int`.
+        *  If `t_start` and `t_stop` are neither None nor a `pq.Quantity`.
+        *  If `trim` is not `bool`.
     ValueError
-        If `sampling_period` is smaller than zero.
-
-        If `kernel` is 'auto' and the function was unable to calculate optimal
-        kernel width for instantaneous rate from input data.
+        *  If `sampling_period` is smaller than zero.
+        *  If `kernel` is 'auto' and the function was unable to calculate
+           optimal kernel width for instantaneous rate from input data.
 
     Warns
     -----
     UserWarning
-        If `cutoff` is less than `min_cutoff` attribute of `kernel`, the width
-        of the kernel is adjusted to a minimally allowed width.
+        *  If `cutoff` is less than `min_cutoff` attribute of `kernel`, the
+           width of the kernel is adjusted to a minimally allowed width.
 
     Notes
     -----
@@ -816,32 +810,29 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
         if kernel == 'auto':
             kernel = optimal_kernel(spiketrains)
         spiketrains = [spiketrains]
-    elif not isinstance(spiketrains, (list, tuple, SpikeTrainList)):
-        raise TypeError(
-            "'spiketrains' must be a list of neo.SpikeTrain's or a single "
-            "neo.SpikeTrain. Found: '{}'".format(type(spiketrains)))
+
+    if not all([isinstance(elem, neo.SpikeTrain) for elem in spiketrains]):
+        raise TypeError(f"'spiketrains' must be a list of neo.SpikeTrain's or "
+                        f"a single neo.SpikeTrain. Found: {type(spiketrains)}")
 
     if not is_time_quantity(sampling_period):
-        raise TypeError(
-            "The 'sampling_period' must be a time Quantity. \n"
-            "Found: {}".format(type(sampling_period)))
+        raise TypeError(f"The 'sampling_period' must be a time Quantity."
+                        f"Found: {type(sampling_period)}")
 
     if sampling_period.magnitude < 0:
-        raise ValueError("The 'sampling_period' ({}) must be non-negative.".
-                         format(sampling_period))
+        raise ValueError(f"The 'sampling_period' ({sampling_period}) "
+                         f"must be non-negative.")
 
     if not (isinstance(kernel, kernels.Kernel) or kernel == 'auto'):
-        raise TypeError(
-            "'kernel' must be either instance of class elephant.kernels.Kernel"
-            " or the string 'auto'. Found: %s, value %s" % (type(kernel),
-                                                            str(kernel)))
+        raise TypeError(f"'kernel' must be instance of class "
+                        f"elephant.kernels.Kernel or string 'auto'. Found: "
+                        f"{type(kernel)}, value {str(kernel)}")
 
     if not isinstance(cutoff, (float, int)):
         raise TypeError("'cutoff' must be float or integer")
 
     if not is_time_quantity(t_start, allow_none=True):
         raise TypeError("'t_start' must be a time Quantity")
-
     if not is_time_quantity(t_stop, allow_none=True):
         raise TypeError("'t_stop' must be a time Quantity")
 
@@ -851,6 +842,7 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
     check_neo_consistency(spiketrains,
                           object_type=neo.SpikeTrain,
                           t_start=t_start, t_stop=t_stop)
+
     if kernel == 'auto':
         if len(spiketrains) == 1:
             kernel = optimal_kernel(spiketrains[0])
@@ -872,11 +864,6 @@ def instantaneous_rate(spiketrains, sampling_period, kernel='auto',
     n_bins = int(((t_stop - t_start) / sampling_period).simplified)
     hist_range_end = t_start + n_bins * \
         sampling_period.rescale(spiketrains[0].units)
-
-    if hist_range_end != t_stop:
-        warnings.warn(f"The last interval from {hist_range_end} to {t_stop} "
-                      f"was dropped. Length of interval: "
-                      f"{t_stop-hist_range_end}")
 
     hist_range = (t_start.item(), hist_range_end.item())
 

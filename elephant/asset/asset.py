@@ -136,7 +136,7 @@ from tqdm import trange, tqdm
 
 import elephant.conversion as conv
 from elephant import spike_train_surrogates
-from elephant.utils import get_cuda_capability_major
+from elephant.utils import get_cuda_capability_major, get_opencl_capability
 
 try:
     from mpi4py import MPI
@@ -427,7 +427,7 @@ def _stretched_metric_2d(x, y, stretch, ref_angle, working_memory=None):
         dY = y_array.T - y_array
 
         # Compute the matrix Theta of angles between each pair of points
-        theta = np.arctan2(dY, dX, dtype=np.float32)
+        theta = np.arctan2(dY, dX, dtype=np.float64)
 
         stretch_mat = calculate_stretch_mat(theta, D)
     else:
@@ -513,9 +513,11 @@ class _GPUBackend:
         use_cuda = int(os.getenv("ELEPHANT_USE_CUDA", '1'))
         use_opencl = int(os.getenv("ELEPHANT_USE_OPENCL", '1'))
         cuda_detected = get_cuda_capability_major() != 0
+        opencl_detected = get_opencl_capability()
+
         if use_cuda and cuda_detected:
             return self.pycuda
-        if use_opencl:
+        if use_opencl and opencl_detected:
             return self.pyopencl
         return self.cpu
 
@@ -2200,8 +2202,7 @@ class ASSET(object):
             significant value in `pmat` (extreme case: `pmat[i, j] = 1`) yields
             joint significance of itself and its neighbors.
             Default: 1e-5
-<<<<<<< HEAD:elephant/asset.py
-=======
+
         precision : {'float', 'double'}, optional
             Single or double floating-point precision for the resulting `jmat`
             matrix.
@@ -2237,7 +2238,6 @@ class ASSET(object):
             resulting joint prob. matrix values are outside of the acceptable
             range ``[-tolerance, 1.0 + tolerance]``.
             Default: 1e-5
->>>>>>> master:elephant/asset/asset.py
 
         Returns
         -------
