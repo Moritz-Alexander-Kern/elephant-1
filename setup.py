@@ -105,7 +105,7 @@ if '--nofim' not in sys.argv:
 
 class CommandMixin(object):
     """
-    A command class to disable compilation of extensions
+    This class acts as a superclass to integrate new commands in setuptools.
     """
     user_options = [
         ('nofim', None, 'a flag option')
@@ -113,8 +113,6 @@ class CommandMixin(object):
 
     def initialize_options(self):
         """
-        Sets the default value for the server socket.
-
         The method is responsible for setting default values for
         all the options that the command supports.
 
@@ -129,7 +127,7 @@ class CommandMixin(object):
         """
         Overriding a required abstract method.
 
-        The method is responsible for setting and checking the
+        This method is responsible for setting and checking the
         final values and option dependencies for all the options
         just before the method run is executed.
 
@@ -140,25 +138,33 @@ class CommandMixin(object):
 
     def run(self):
         """
-        Semantically, removes extension from setup
+        Sets global which can later be used in setup.py to remove c-extensions
+        from setup call.
         """
         # Use options
         global nofim
-        nofim = self.nofim  # will be 1 or None
+        nofim = self.nofim
 
         super().run()
 
 
 class InstallCommand(CommandMixin, install):
+    """
+    This class extends setuptools.command.install class, adding user options.
+    """
     user_options = getattr(
         install, 'user_options', []) + CommandMixin.user_options
 
 
 class DevelopCommand(CommandMixin, develop):
+    """
+    This class extends setuptools.command.develop class, adding user options.
+    """
     user_options = getattr(
         develop, 'user_options', []) + CommandMixin.user_options
 
 
+# add classes to setup-kwargs to add the user options
 setup_kwargs['cmdclass'] = {'install': InstallCommand,
                             'develop': DevelopCommand}
 
