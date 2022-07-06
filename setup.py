@@ -2,7 +2,11 @@
 import os.path
 import platform
 
+import warnings
+
 from setuptools import setup, Extension
+from setuptools.command.install import install
+from setuptools.command.develop import develop
 
 with open(os.path.join(os.path.dirname(__file__),
                        "elephant", "VERSION")) as version_file:
@@ -21,7 +25,6 @@ if platform.system() == "Windows":
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
-        optional=True,
         include_dirs=['elephant/spade_src/include'],
         language='c++',
         libraries=[],
@@ -33,7 +36,6 @@ elif platform.system() == "Darwin":
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
-        optional=False,
         include_dirs=['elephant/spade_src/include'],
         language='c++',
         libraries=['pthread', 'omp'],
@@ -47,7 +49,6 @@ elif platform.system() == "Linux":
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
-        optional=True,
         include_dirs=['elephant/spade_src/include'],
         language='c++',
         libraries=['pthread', 'gomp'],
@@ -95,5 +96,81 @@ setup_kwargs = {
 if platform.system() in ["Windows", "Linux", "Darwin"]:
     setup_kwargs["ext_modules"] = [fim_module]
 
+
+# from setuptools.command.install import install
+#
+# class InstallCommand(install):
+#     user_options = install.user_options + [
+#         ('engine=', None, '<description for this custom option>'),
+#     ]
+#
+#     def initialize_options(self):
+#         install.initialize_options(self)
+#         self.engine = None
+#
+#     def finalize_options(self):
+#         print("value of engine is", self.engine)
+#         install.finalize_options(self)
+#
+#     def run(self):
+#         print(self.engine)
+#         install.run(self)
+
+class CommandMixin(object):
+    """
+    A command class to disable compilation of extensions
+    """
+    user_options = [
+        ('nofim', None, 'a flag option')
+    ]
+
+    def initialize_options(self):
+        """
+        Sets the default value for the server socket.
+
+        The method is responsible for setting default values for
+        all the options that the command supports.
+
+        Option dependencies should not be set here.
+        """
+
+        super().initialize_options()
+        # Initialize options
+        self.nofim = None
+
+    def finalize_options(self):
+        """
+        Overriding a required abstract method.
+
+        The method is responsible for setting and checking the
+        final values and option dependencies for all the options
+        just before the method run is executed.
+
+        In practice, this is where the values are assigned and verified.
+        """
+
+        super().finalize_options()
+
+    def run(self):
+        """
+        Semantically, removes extension from setup
+        """
+        print("Hello setup")
+        super().run()
+
+class InstallCommand(CommandMixin, install):
+    user_options = getattr(install, 'user_options', []) + CommandMixin.user_options
+
+class DevelopCommand(CommandMixin, develop):
+    user_options = getattr(develop, 'user_options', []) + CommandMixin.user_options
+
+# setup(
+#     ...,
+#     cmdclass={
+#         'install': InstallCommand,
+#         'develop': DevelopCommand,
+#     }
+
+setup_kwargs['cmdclass'] = {'install': InstallCommand, 'develop': DevelopCommand}
 
 setup(**setup_kwargs)
