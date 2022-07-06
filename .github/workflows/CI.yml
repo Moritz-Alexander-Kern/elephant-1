@@ -327,7 +327,6 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-
       - name: Get current year-month
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m')"
