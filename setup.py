@@ -97,27 +97,6 @@ if '--nofim' not in sys.argv:
     if platform.system() in ["Windows", "Linux", "Darwin"]:
         setup_kwargs["ext_modules"] = [fim_module]
 
-# if '--nofim' in sys.argv:
-#     raise ValueError("Illegal someval!")
-
-# from setuptools.command.install import install
-#
-# class InstallCommand(install):
-#     user_options = install.user_options + [
-#         ('engine=', None, '<description for this custom option>'),
-#     ]
-#
-#     def initialize_options(self):
-#         install.initialize_options(self)
-#         self.engine = None
-#
-#     def finalize_options(self):
-#         print("value of engine is", self.engine)
-#         install.finalize_options(self)
-#
-#     def run(self):
-#         print(self.engine)
-#         install.run(self)
 
 class CommandMixin(object):
     """
@@ -164,19 +143,18 @@ class CommandMixin(object):
 
         super().run()
 
+
 class InstallCommand(CommandMixin, install):
-    user_options = getattr(install, 'user_options', []) + CommandMixin.user_options
+    user_options = getattr(
+        install, 'user_options', []) + CommandMixin.user_options
+
 
 class DevelopCommand(CommandMixin, develop):
-    user_options = getattr(develop, 'user_options', []) + CommandMixin.user_options
+    user_options = getattr(
+        develop, 'user_options', []) + CommandMixin.user_options
 
-# setup(
-#     ...,
-#     cmdclass={
-#         'install': InstallCommand,
-#         'develop': DevelopCommand,
-#     }
 
-setup_kwargs['cmdclass'] = {'install': InstallCommand, 'develop': DevelopCommand}
+setup_kwargs['cmdclass'] = {'install': InstallCommand,
+                            'develop': DevelopCommand}
 
 setup(**setup_kwargs)
