@@ -30,7 +30,8 @@ if platform.system() == "Windows":
         extra_compile_args=[
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-fopenmp', '/std:c++17'],
-        )
+        optional=True
+    )
 elif platform.system() == "Darwin":
     fim_module = Extension(
         name='elephant.spade_src.fim',
@@ -43,7 +44,9 @@ elif platform.system() == "Darwin":
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
             '-Xpreprocessor',
-            '-fopenmp', '-std=gnu++17'])
+            '-fopenmp', '-std=gnu++17'],
+        optional=True
+    )
 elif platform.system() == "Linux":
     fim_module = Extension(
         name='elephant.spade_src.fim',
@@ -55,7 +58,9 @@ elif platform.system() == "Linux":
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror',
-            '-fopenmp', '-std=gnu++17'])
+            '-fopenmp', '-std=gnu++17'],
+        optional=True
+    )
 
 setup_kwargs = {
     "name": "elephant",
