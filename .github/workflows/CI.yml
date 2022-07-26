@@ -371,8 +371,9 @@ jobs:
         run: |
           cd doc
           make html
-
+      
       - name: Upload HTML
+        if: ${{ github.event.label.name == 'upload html' }}
         uses: actions/upload-artifact@v3
         with:
            name: docs-html
