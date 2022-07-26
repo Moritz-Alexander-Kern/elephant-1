@@ -45,6 +45,8 @@ jobs:
   # install dependencies and elephant with pip and run tests with pytest
   build-and-test-pip:
     runs-on: ${{ matrix.os }}
+    compiler: gcc
+    gcc: 11
     strategy:
       matrix:
         # python versions for elephant: [3.7, 3.8, 3.9, "3.10"]
