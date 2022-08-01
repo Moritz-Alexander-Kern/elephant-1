@@ -2,7 +2,7 @@
 Gaussian-process factor analysis (GPFA) is a dimensionality reduction method
 :cite:`gpfa-Yu2008_1881` for neural trajectory visualization of parallel spike
 trains. GPFA applies factor analysis (FA) to time-binned spike count data to
-reduce the dimensionality and at the same time smoothes the resulting
+reduce the dimensionality and at the same time smooth the resulting
 low-dimensional trajectories by fitting a Gaussian process (GP) model to them.
 
 The input consists of a set of trials (Y), each containing a list of spike
@@ -20,18 +20,18 @@ Gaussian process are estimated from the data using an expectation-maximization
 
 Internally, the analysis consists of the following steps:
 
-0) bin the spike train data to get a sequence of N dimensional vectors of spike
-counts in respective time bins, and choose the reduced dimensionality x_dim
+#. bin the spike train data to get a sequence of N dimensional vectors of spike
+   counts in respective time bins, and choose the reduced dimensionality x_dim.
 
-1) expectation-maximization for fitting of the parameters C, d, R and the
-time-scales and variances of the Gaussian process, using all the trials
-provided as input (c.f., `gpfa_core.em()`)
+#. expectation-maximization for fitting of the parameters C, d, R and the
+   time-scales and variances of the Gaussian process, using all the trials
+   provided as input (c.f., `gpfa_core.em()`).
 
-2) projection of single trials in the low dimensional space (c.f.,
-`gpfa_core.exact_inference_with_ll()`)
+#. projection of single trials in the low dimensional space (c.f.,
+   `gpfa_core.exact_inference_with_ll()`).
 
-3) orthonormalization of the matrix C and the corresponding subspace, for
-visualization purposes: (c.f., `gpfa_core.orthonormalize()`)
+#. orthonormalization of the matrix C and the corresponding subspace, for
+   visualization purposes: (c.f., `gpfa_core.orthonormalize()`).
 
 
 .. autosummary::
@@ -54,7 +54,7 @@ Tutorial
 Run tutorial interactively:
 
 .. image:: https://mybinder.org/badge.svg
-   :target: https://mybinder.org/v2/gh/NeuralEnsemble/elephant/master
+    :target: https://mybinder.org/v2/gh/NeuralEnsemble/elephant/master
             ?filepath=doc/tutorials/gpfa.ipynb
 
 
