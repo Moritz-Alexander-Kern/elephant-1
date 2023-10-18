@@ -75,7 +75,7 @@ jobs:
       - name: Cache test_env
         uses: actions/cache@v3
         with:
-          path: /home/runner/.benchmarks
+          path: /home/runner/work/elephant-1/elephant-1/.benchmarks
           # Look to see if there is a cache hit for the corresponding requirements files
           # cache will be reset on changes to any requirements or every month
           key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/requirements-tests.txt') }}
