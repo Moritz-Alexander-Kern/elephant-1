@@ -479,7 +479,7 @@ jobs:
           pytest elephant --doctest-modules --ignore=elephant/test/
 
   # install dependencies and elephant with pip and run tests with pytest
-  benchmark:
+  benchmark-pytest:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
