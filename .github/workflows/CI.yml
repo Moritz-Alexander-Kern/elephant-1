@@ -99,6 +99,7 @@ jobs:
 
       - name: Benchmark with pytest-benchmark
         run: |
-          pytest --benchmark-only --benchmark-compare --benchmark-autosave
+          # pytest --benchmark-only --benchmark-compare --benchmark-autosave
+          pytest --benchmark-only --benchmark-json output.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
