@@ -702,3 +702,37 @@ class SurrogatesTestCase(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+"""
+BENCHMARKS
+
+"""
+
+
+def benchmark_surrogates():
+    """
+    Function that needs some serious benchmarking.
+    """
+    st = neo.SpikeTrain([90, 150, 180, 350] * pq.ms, t_stop=500 * pq.ms)
+
+    n_surrogates = 2
+    dither = 10 * pq.ms
+    np.random.seed(42)
+    surrogate_trains = surr.dither_spikes(
+      st, dither=dither, decimals=3, n_surrogates=n_surrogates)
+
+    np.random.seed(42)
+    dither_values = np.random.random_sample((n_surrogates, len(st)))
+    expected_non_dithered = np.sum(dither_values == 0)
+
+    observed_non_dithered = 0
+    for surrogate_train in surrogate_trains:
+        for i in range(len(surrogate_train)):
+            if surrogate_train[i] - int(surrogate_train[i]) * \
+                    pq.ms == surrogate_train[i] - surrogate_train[i]:
+                observed_non_dithered += 1
+
+
+def test_benchmark_surrogates(benchmark):
+    # benchmark surrogates
+    benchmark(benchmark_surrogates)
