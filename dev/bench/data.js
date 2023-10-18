@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1697617215638,
+  "lastUpdate": 1697617646706,
   "repoUrl": "https://github.com/Moritz-Alexander-Kern/elephant-1",
   "entries": {
     "Benchmark": [
@@ -54,6 +54,35 @@ window.BENCHMARK_DATA = {
             "unit": "iter/sec",
             "range": "stddev: 0.000016166479869615453",
             "extra": "mean: 2.472754501556985 msec\nrounds: 321"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Moritz-Alexander-Kern",
+            "username": "Moritz-Alexander-Kern",
+            "email": "moritz.kern@ymail.com"
+          },
+          "committer": {
+            "name": "Moritz-Alexander-Kern",
+            "username": "Moritz-Alexander-Kern",
+            "email": "moritz.kern@ymail.com"
+          },
+          "id": "445d7271a47446c4e67834ab31bc1f804be623a7",
+          "message": "add permissions",
+          "timestamp": "2023-10-18T08:18:02Z",
+          "url": "https://github.com/Moritz-Alexander-Kern/elephant-1/commit/445d7271a47446c4e67834ab31bc1f804be623a7"
+        },
+        "date": 1697617645028,
+        "tool": "pytest",
+        "benches": [
+          {
+            "name": "elephant/test/test_spike_train_surrogates.py::test_benchmark_surrogates",
+            "value": 412.70264220348764,
+            "unit": "iter/sec",
+            "range": "stddev: 0.000017809426719150356",
+            "extra": "mean: 2.4230520906307618 msec\nrounds: 320"
           }
         ]
       }
