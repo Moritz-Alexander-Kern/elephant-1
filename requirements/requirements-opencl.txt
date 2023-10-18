@@ -1,2 +1,0 @@
-# conda install -c conda-forge pyopencl intel-compute-runtime
-pyopencl>=2020.2.2

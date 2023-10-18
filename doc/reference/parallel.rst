@@ -1,5 +1,0 @@
-========
-Parallel
-========
-
-.. automodule:: elephant.parallel
