@@ -42,9 +42,3 @@ jobs:
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1  # Prevents auto-updating Homebrew for faster builds
 
-
-      - name: Compile C++ Code
-        run: |
-            pip install -e .
-            ls elephant/spade_src/
-
