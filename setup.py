@@ -42,7 +42,7 @@ elif platform.system() == "Darwin":
         extra_compile_args=[
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
-            '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
+            '-Weffc++', '-Wunused-result', '-Werror',
             '-Xpreprocessor',
             '-fopenmp', '-std=c++17'],
         optional=False
