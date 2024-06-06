@@ -26,28 +26,21 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install llvm libomp python3
+          brew install llvm libomp
 
-      - name: Set environment variables
-        run: |
-          echo "/opt/homebrew/opt/llvm/bin" >> $GITHUB_PATH
-          echo "LDFLAGS=-L/opt/homebrew/opt/llvm/lib" >> $GITHUB_ENV
-          echo "CPPFLAGS=-I/opt/homebrew/opt/llvm/include" >> $GITHUB_ENV
-          echo "CXX=/opt/homebrew/opt/llvm/bin/clang++" >> $GITHUB_ENV
+#      - name: Compile fim.cpp
+#        run: |
+#          /opt/homebrew/opt/llvm/bin/clang++ -o fim.o -c elephant/spade_src/src/fim.cpp \
+#            -Ielephant/spade_src/include \
+#            -I/opt/homebrew/opt/llvm/include \
+#            -Xpreprocessor -fopenmp \
+#            -std=gnu++17 \
+#            -O3 -pedantic -Wextra -Weffc++ -Wunused-result -Werror -Werror=return-type
 
-      - name: Compile fim.cpp
+      - name: Compile C++ Code
         run: |
-          /opt/homebrew/opt/llvm/bin/clang++ -o fim.o -c elephant/spade_src/src/fim.cpp \
-            -Ielephant/spade_src/include \
-            -I/opt/homebrew/opt/llvm/include \
-            -Xpreprocessor -fopenmp \
-            -std=gnu++17 \
-            -O3 -pedantic -Wextra -Weffc++ -Wunused-result -Werror -Werror=return-type
-
-      - name: Link fim.o to fim.so
-        run: |
-          /opt/homebrew/opt/llvm/bin/clang++ -o fim.so fim.o -shared \
-            -L/opt/homebrew/opt/llvm/lib -lomp -std=gnu++17
+            cd elephant/spade_src/src/fim.cpp
+            clang++ -std=gnu++17 -shared -undefined dynamic_lookup -o fim.so fim.cpp FPGrowth.cpp -I/usr/local/include/python3.10
 
       - name: Upload compiled artifacts
         uses: actions/upload-artifact@v3
