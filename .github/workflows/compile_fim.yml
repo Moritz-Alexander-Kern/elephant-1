@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install llvm libomp python3-dev
+          brew install llvm libomp python3
 
       - name: Set environment variables
         run: |
