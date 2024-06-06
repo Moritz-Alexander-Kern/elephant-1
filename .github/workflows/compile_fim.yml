@@ -28,22 +28,8 @@ jobs:
         run: |
           brew install llvm libomp
 
-#      - name: Compile fim.cpp
-#        run: |
-#          /opt/homebrew/opt/llvm/bin/clang++ -o fim.o -c elephant/spade_src/src/fim.cpp \
-#            -Ielephant/spade_src/include \
-#            -I/opt/homebrew/opt/llvm/include \
-#            -Xpreprocessor -fopenmp \
-#            -std=gnu++17 \
-#            -O3 -pedantic -Wextra -Weffc++ -Wunused-result -Werror -Werror=return-type
-
       - name: Compile C++ Code
         run: |
-            cd elephant/spade_src/src/
-            clang++ -std=gnu++17 -shared -undefined dynamic_lookup -o fim.so fim.cpp -I/usr/local/include/python3.10
+            pip install -e .
+            ls elephant/spade_src/
 
-      - name: Upload compiled artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: fim-compiled
-          path: fim.so
