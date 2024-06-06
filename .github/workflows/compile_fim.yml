@@ -40,7 +40,7 @@ jobs:
       - name: Compile C++ Code
         run: |
             cd elephant/spade_src/src/fim.cpp
-            clang++ -std=gnu++17 -shared -undefined dynamic_lookup -o fim.so fim.cpp FPGrowth.cpp -I/usr/local/include/python3.10
+            clang++ -std=gnu++17 -shared -undefined dynamic_lookup -o fim.so fim.cpp -I/usr/local/include/python3.10
 
       - name: Upload compiled artifacts
         uses: actions/upload-artifact@v3
