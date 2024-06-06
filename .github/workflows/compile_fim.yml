@@ -30,7 +30,9 @@ jobs:
           export PATH="/usr/local/opt/llvm/bin:$PATH"
           export CC=/usr/local/opt/llvm/bin/clang
           export CXX=/usr/local/opt/llvm/bin/clang++
-          CXXFLAGS="-std=c++17" pip install .
+          export LDFLAGS="-L/usr/local/opt/llvm/lib"
+          export CPPFLAGS="-I/usr/local/opt/llvm/include"
+          pip install .
 
 
       - name: Compile C++ Code
