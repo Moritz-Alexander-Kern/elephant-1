@@ -42,7 +42,6 @@ jobs:
             -I/opt/homebrew/opt/llvm/include \
             -L/opt/homebrew/opt/llvm/lib \
             -Xpreprocessor -fopenmp \
-            -lomp \
             -std=gnu++17 \
             -O3 -pedantic -Wextra -Weffc++ -Wunused-result -Werror -Werror=return-type
 
