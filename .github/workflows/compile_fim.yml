@@ -27,6 +27,10 @@ jobs:
       - name: Install dependencies
         run: |
           brew install llvm libomp
+          export PATH="/usr/local/opt/llvm/bin:$PATH"
+          export CC=/usr/local/opt/llvm/bin/clang
+          export CXX=/usr/local/opt/llvm/bin/clang++
+
 
       - name: Compile C++ Code
         run: |
