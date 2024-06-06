@@ -44,7 +44,7 @@ elif platform.system() == "Darwin":
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
             '-Xpreprocessor',
-            '-fopenmp', '-std=c++17', '-fexperimental-library'],
+            '-fopenmp', '-std=c++17'],
         optional=False
     )
 elif platform.system() == "Linux":
