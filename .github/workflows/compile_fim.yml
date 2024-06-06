@@ -40,7 +40,6 @@ jobs:
           /opt/homebrew/opt/llvm/bin/clang++ -o fim.o -c elephant/spade_src/src/fim.cpp \
             -Ielephant/spade_src/include \
             -I/opt/homebrew/opt/llvm/include \
-            -L/opt/homebrew/opt/llvm/lib \
             -Xpreprocessor -fopenmp \
             -std=gnu++17 \
             -O3 -pedantic -Wextra -Weffc++ -Wunused-result -Werror -Werror=return-type
