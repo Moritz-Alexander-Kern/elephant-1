@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, macos-12, macos-13, macos-14]
+        os: [macos-11, macos-12, macos-13]
       fail-fast: false
 
     steps:
@@ -32,7 +32,14 @@ jobs:
           export CXX=/usr/local/opt/llvm/bin/clang++
           export LDFLAGS="-L/usr/local/opt/llvm/lib"
           export CPPFLAGS="-I/usr/local/opt/llvm/include"
+          pip install --upgrade pip
+          pip install --upgrade setuptools
+          pip install virtualenv
+          virtualenv my-test-env
+          source my-test-env/bin/activate
           pip install .
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1  # Prevents auto-updating Homebrew for faster builds
 
 
       - name: Compile C++ Code
