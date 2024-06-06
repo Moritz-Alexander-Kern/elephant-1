@@ -39,7 +39,6 @@ elif platform.system() == "Darwin":
         include_dirs=['elephant/spade_src/include'],
         language='c++',
         libraries=['omp'],
-        extra_link_args=['-fopenmp'],
         extra_compile_args=[
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
