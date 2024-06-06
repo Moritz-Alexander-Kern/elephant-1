@@ -45,7 +45,7 @@ elif platform.system() == "Darwin":
             '-Weffc++', '-Wunused-result', '-Werror', '-Werror=return-type',
             '-Xpreprocessor',
             '-fopenmp', '-std=gnu++17'],
-        optional=True
+        optional=False
     )
 elif platform.system() == "Linux":
     fim_module = Extension(
@@ -101,7 +101,7 @@ setup_kwargs = {
 options = {"--no-compile": None, "--no-compile-spade": fim_module}
 # check if any option was specified
 if not any([True for key in options.keys() if key in sys.argv]):
-    if platform.system() in ["Windows", "Linux"]:
+    if platform.system() in ["Windows", "Linux", "Darwin"]:
         setup_kwargs["ext_modules"] = [fim_module]
 else:  # ...any option was specified
     # select extensions accordingly

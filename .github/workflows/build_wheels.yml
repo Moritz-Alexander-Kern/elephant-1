@@ -7,6 +7,27 @@ on:
       - master
   pull_request_review:
     types: [ submitted ]
+  pull_request:
+    branches:
+      - master
+    types:
+      #- assigned
+      #- unassigned
+      #- labeled
+      #- unlabeled
+      - opened
+      #- edited
+      #- closed
+      - reopened
+      - synchronize
+      #- converted_to_draft
+      #- ready_for_review
+      #- locked
+      #- unlocked
+      #- review_requested
+      #- review_request_removed
+      #- auto_merge_enabled
+      #- auto_merge_disabled
 
 # Building wheels on Ubuntu and Windows systems
 jobs:
@@ -15,7 +36,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, windows-2019]
+        os: [ubuntu-20.04, windows-2019, macos-14]
 
     steps:
       - uses: actions/checkout@v4
