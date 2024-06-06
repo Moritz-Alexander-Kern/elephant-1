@@ -39,6 +39,7 @@ jobs:
           pip install virtualenv
           virtualenv my-test-env
           source my-test-env/bin/activate
+          clang --version
           pip install .
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1  # Prevents auto-updating Homebrew for faster builds
