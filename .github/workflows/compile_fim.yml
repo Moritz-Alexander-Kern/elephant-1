@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, macos-12, macos-13]
+        os: [macos-12]
       fail-fast: false
 
     steps:
@@ -39,6 +39,10 @@ jobs:
           source my-test-env/bin/activate
           clang --version
           pip install .
+          ls elephant/spade_src/
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1  # Prevents auto-updating Homebrew for faster builds
 
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./elephant/spade_src/*.so
