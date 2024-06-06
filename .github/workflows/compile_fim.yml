@@ -1,0 +1,58 @@
+name: Compile fim.cpp on macOS
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_macos:
+    name: Compile on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-13, macos-14]
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+
+      - name: Install dependencies
+        run: |
+          brew install llvm libomp
+
+      - name: Set environment variables
+        run: |
+          echo "/opt/homebrew/opt/llvm/bin" >> $GITHUB_PATH
+          echo "LDFLAGS=-L/opt/homebrew/opt/llvm/lib" >> $GITHUB_ENV
+          echo "CPPFLAGS=-I/opt/homebrew/opt/llvm/include" >> $GITHUB_ENV
+          echo "CXX=/opt/homebrew/opt/llvm/bin/clang++" >> $GITHUB_ENV
+
+      - name: Compile fim.cpp
+        run: |
+          /opt/homebrew/opt/llvm/bin/clang++ -o fim.o -c elephant/spade_src/src/fim.cpp \
+            -Ielephant/spade_src/include \
+            -I/opt/homebrew/opt/llvm/include \
+            -L/opt/homebrew/opt/llvm/lib \
+            -Xpreprocessor -fopenmp \
+            -lomp \
+            -std=gnu++17 \
+            -O3 -pedantic -Wextra -Weffc++ -Wunused-result -Werror -Werror=return-type
+
+      - name: Link fim.o to fim.so
+        run: |
+          /opt/homebrew/opt/llvm/bin/clang++ -o fim.so fim.o -shared \
+            -L/opt/homebrew/opt/llvm/lib -lomp -std=gnu++17
+
+      - name: Upload compiled artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: fim-compiled
+          path: fim.so
