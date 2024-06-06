@@ -27,11 +27,13 @@ jobs:
       - name: Install dependencies
         run: |
           brew install llvm libomp
+          echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' >> /Users/runner/.bash_profile
           export PATH="/usr/local/opt/llvm/bin:$PATH"
           export CC=/usr/local/opt/llvm/bin/clang
           export CXX=/usr/local/opt/llvm/bin/clang++
           export LDFLAGS="-L/usr/local/opt/llvm/lib"
           export CPPFLAGS="-I/usr/local/opt/llvm/include"
+          LDFLAGS="-L/usr/local/opt/llvm/lib/c++ -Wl,-rpath,/usr/local/opt/llvm/lib/c++" pip install .
           pip install --upgrade pip
           pip install --upgrade setuptools
           pip install virtualenv
