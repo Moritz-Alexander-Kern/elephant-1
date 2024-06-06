@@ -38,7 +38,7 @@ elif platform.system() == "Darwin":
         sources=['elephant/spade_src/src/fim.cpp'],
         include_dirs=['elephant/spade_src/include'],
         language='c++',
-        libraries=['pthread', 'omp'],
+        libraries=['omp'],
         extra_compile_args=[
             '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
