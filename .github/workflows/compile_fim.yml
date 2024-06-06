@@ -33,7 +33,7 @@ jobs:
           export CXX=/usr/local/opt/llvm/bin/clang++
           export LDFLAGS="-L/usr/local/opt/llvm/lib"
           export CPPFLAGS="-I/usr/local/opt/llvm/include"
-          LDFLAGS="-L/usr/local/opt/llvm/lib/c++ -Wl,-rpath,/usr/local/opt/llvm/lib/c++" pip install .
+          LDFLAGS="-L/usr/local/opt/llvm/lib/c++ -Wl,-rpath,/usr/local/opt/llvm/lib/c++"
           pip install --upgrade pip
           pip install --upgrade setuptools
           pip install virtualenv
