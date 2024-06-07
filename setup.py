@@ -56,7 +56,6 @@ elif platform.system() == "Darwin":
             '-Xpreprocessor',
             '-fopenmp',  # Enable OpenMP
             '-std=c++17',
-            '-stdlib=libc++',  # Specify the C++ standard library
             f'-I{os.path.join(libomp_dir, "include")}'  # Include OpenMP headers
         ],
         extra_link_args=[
