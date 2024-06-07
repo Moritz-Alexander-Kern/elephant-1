@@ -44,6 +44,6 @@ jobs:
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1  # Prevents auto-updating Homebrew for faster builds
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: ./elephant/spade_src/*.so
