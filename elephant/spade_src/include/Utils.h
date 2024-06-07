@@ -26,6 +26,13 @@
 
 #pragma once
 
+#include <iostream>
+#include <string>
+#include <sys/types.h>
+#include <mach/task.h>
+#include <mach/mach_init.h>
+#include <mach/mach_error.h>
+
 #include <string>
 #include <vector>
 #include <deque>
@@ -392,6 +399,15 @@ uint64_t GetCurrentRSS()
 
 	return static_cast<uint64_t>(resident * sysconf(_SC_PAGE_SIZE));
 #endif
+    task_vm_info_data_t vmInfo;
+    mach_msg_type_number_t infoCount = TASK_VM_INFO_COUNT;
+    kern_return_t kr = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t)&vmInfo, &infoCount);
+    if (kr != KERN_SUCCESS)
+    {
+        std::cerr << "Error: " << mach_error_string(kr) << std::endl;
+        return 0;
+    }
+    return static_cast<uint64_t>(vmInfo.phys_footprint);
 }
 
 std::string GetMemString()
