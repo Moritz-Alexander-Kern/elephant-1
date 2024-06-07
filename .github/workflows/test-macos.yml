@@ -27,6 +27,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+            brew install libomp gcc
+            export CC=/usr/local/bin/gcc-14
+            export CXX=/usr/local/bin/g++-14
+            export LDFLAGS="-L/usr/local/opt/libomp/lib"
+            export CPPFLAGS="-I/usr/local/opt/libomp/include"
             python -m pip install --upgrade pip
             #pip install -r requirements/requirements.txt
             #pip install -i https://test.pypi.org/simple/ elephant-test
