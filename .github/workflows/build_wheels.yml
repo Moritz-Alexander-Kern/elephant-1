@@ -54,7 +54,7 @@ jobs:
 
       - name: Install libomp
         if: runner.os == 'macOS'
-        run: brew install libomp
+        run: brew install libomp llvm
 
       - name: Build wheels
         if: runner.os == 'Windows' || runner.os == 'Linux'
@@ -67,7 +67,6 @@ jobs:
       - name: Build wheels
         if: runner.os == 'macOS'
         run: |
-          brew install libomp llvm
           export CC=/usr/local/opt/llvm/bin/clang
           export CXX=/usr/local/opt/llvm/bin/clang++
           export LDFLAGS="-L/usr/local/opt/libomp/lib"
