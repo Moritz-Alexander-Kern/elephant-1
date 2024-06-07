@@ -42,7 +42,8 @@ elif platform.system() == "Darwin":
         sources=['elephant/spade_src/src/fim.cpp'],
         include_dirs=[
             'elephant/spade_src/include',
-            os.path.join(libomp_dir, 'include')  # Include directory for OpenMP headers
+            os.path.join(libomp_dir, 'include'),  # Include directory for OpenMP headers
+            os.path.join(libomp_dir, 'lib')  # Include directory for OpenMP headers
         ],
         language='c++',
         libraries=['omp'],  # You might need to check the actual name of the OpenMP library
