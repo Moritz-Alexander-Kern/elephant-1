@@ -33,17 +33,37 @@ if platform.system() == "Windows":
         optional=True
     )
 elif platform.system() == "Darwin":
+    # Path to the Homebrew-installed llvm and libomp
+    llvm_dir = '/usr/local/opt/llvm'
+    libomp_dir = '/usr/local/opt/libomp'
+
     fim_module = Extension(
         name='elephant.spade_src.fim',
         sources=['elephant/spade_src/src/fim.cpp'],
-        include_dirs=['elephant/spade_src/include'],
+        include_dirs=[
+            'elephant/spade_src/include',
+            os.path.join(libomp_dir, 'include')  # Include directory for OpenMP headers
+        ],
         language='c++',
-        libraries=['omp'],
+        libraries=['omp'],  # You might need to check the actual name of the OpenMP library
         extra_compile_args=[
-            '-DMODULE_NAME=fim', '-DUSE_OPENMP', '-DWITH_SIG_TERM',
-            '-Dfim_EXPORTS', '-O3',
+            '-DMODULE_NAME=fim',
+            '-DUSE_OPENMP',
+            '-DWITH_SIG_TERM',
+            '-Dfim_EXPORTS',
+            '-O3',
             '-Xpreprocessor',
-            '-fopenmp', '-std=c++17'],
+            '-fopenmp',  # Enable OpenMP
+            '-std=c++17',
+            '-stdlib=libc++',  # Specify the C++ standard library
+            f'-I{os.path.join(libomp_dir, "include")}'  # Include OpenMP headers
+        ],
+        extra_link_args=[
+            '-L' + os.path.join(libomp_dir, 'lib'),  # Link against the OpenMP library
+            '-fopenmp',  # Enable OpenMP
+            '-stdlib=libc++',  # Link against libc++
+            '-lomp'  # Link with the OpenMP library (typically named libomp)
+        ],
         optional=False
     )
 elif platform.system() == "Linux":
