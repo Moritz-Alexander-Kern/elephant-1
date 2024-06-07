@@ -37,7 +37,7 @@ jobs:
           python --version
           pip list
           uname -a
-          lscpu
+
     # Run the Python script
       - name: Run Python script
         run: |
