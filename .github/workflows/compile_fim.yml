@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_macos:
-    name: Compile on ${{ matrix.os }}
+    name: Compile on ${{ matrix.os }}, Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
