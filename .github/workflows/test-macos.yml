@@ -29,7 +29,7 @@ jobs:
         run: |
             python -m pip install --upgrade pip
             pip install -r requirements/requirements.txt
-            pip install -i https://test.pypi.org/simple/ elephant-test
+            pip install -i https://test.pypi.org/simple/ elephant-test==1.2.0b2
 
       # Display Python and system information for debugging
       - name: Display Python and system information
