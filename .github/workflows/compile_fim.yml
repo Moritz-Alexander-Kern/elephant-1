@@ -27,9 +27,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install libomp gcc
-          export CC=/usr/local/bin/gcc-14
-          export CXX=/usr/local/bin/g++-14
+          brew install libomp llvm
+          export CC=/usr/local/opt/llvm/bin/clang
+          export CXX=/usr/local/opt/llvm/bin/clang++
           export LDFLAGS="-L/usr/local/opt/libomp/lib"
           export CPPFLAGS="-I/usr/local/opt/libomp/include"
 
