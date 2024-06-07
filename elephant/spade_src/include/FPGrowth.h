@@ -790,7 +790,7 @@ private:
 
 	void reduceTransactions(Transactions& transactions)
 	{
-		std::experimental::erase_if(transactions, [&minPatternLen = m_minPatternLen](const Transaction& t) { return t.size() < minPatternLen; });
+		transactions.erase(std::remove_if(transactions.begin(), transactions.end(), [&minPatternLen = m_minPatternLen](const Transaction& t) { return t.size() < minPatternLen; }), transactions.end());
 	}
 
 private:
