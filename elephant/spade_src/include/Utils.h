@@ -29,9 +29,6 @@
 #include <iostream>
 #include <string>
 #include <sys/types.h>
-#include <mach/task.h>
-#include <mach/mach_init.h>
-#include <mach/mach_error.h>
 
 #include <string>
 #include <vector>
@@ -374,6 +371,12 @@ static inline std::string SizeWithSuffix(const int64_t& val)
 #include <stdio.h>
 #endif
 
+#ifdef __APPLE__
+#include <mach/task.h>
+#include <mach/mach_init.h>
+#include <mach/mach_error.h>
+#endif
+
 
 uint64_t GetCurrentRSS()
 {
@@ -399,7 +402,7 @@ uint64_t GetCurrentRSS()
 
 	return static_cast<uint64_t>(resident * sysconf(_SC_PAGE_SIZE));
 #endif
-#if defined(__APPLE__) || defined(__MACH__) // Check if compiling for macOS
+#ifdef __APPLE__ // Check if compiling for macOS
     task_vm_info_data_t vmInfo;
     mach_msg_type_number_t infoCount = TASK_VM_INFO_COUNT;
     kern_return_t kr = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t)&vmInfo, &infoCount);

@@ -55,7 +55,7 @@ elif platform.system() == "Darwin":
             '-fopenmp',  # Enable OpenMP
             '-std=c++17',
             '-stdlib=libc++',  # Use libc++ for the C++ standard library
-            '-fexperimental-library' # Enable experimental features
+            '-fexperimental-library'  # Enable experimental features
         ],
         extra_link_args=[
             '-L' + os.path.join(libomp_dir, 'lib'),  # Link against the OpenMP library
