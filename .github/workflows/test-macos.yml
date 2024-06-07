@@ -37,7 +37,7 @@ jobs:
             python -m pip install --upgrade pip
             #pip install -r requirements/requirements.txt
             #pip install -i https://test.pypi.org/simple/ elephant-test
-            python setup.py build_ext --inplace
+            pip install .
 
       # Display Python and system information for debugging
       - name: Display Python and system information
