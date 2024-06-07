@@ -29,6 +29,4 @@ jobs:
         run: |
             pip install -r requirements/requirements.txt
             pip install -i https://test.pypi.org/simple/ elephant-test
-            cd requirements/
-            ls
-            python test_spade.py
+            python requirements/test_spade.py
