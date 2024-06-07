@@ -45,7 +45,7 @@
 #ifdef _MSC_VER
 using Clock = std::chrono::system_clock;
 #else
-using Clock = std::chrono::high_resolution_clock;
+using Clock = std::chrono::system_clock;
 #endif
 
 class Timer
