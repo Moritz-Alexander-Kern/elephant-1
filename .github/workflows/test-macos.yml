@@ -31,4 +31,4 @@ jobs:
             pip install -i https://test.pypi.org/simple/ elephant-test
             cd requirements/
             ls
-            python
+            python test_spade.py
