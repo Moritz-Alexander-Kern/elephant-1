@@ -1,0 +1,45 @@
+name: Test macOS
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_macos:
+    name: Test on ${{ matrix.os }}, Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ['3.10', 3.11]
+        os: [macos-11, macos-12, macos-13]
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+            pip install --upgrade pip
+            pip install -r requirements/requirements.txt
+            pip install -i https://test.pypi.org/simple/ elephant-test
+
+      # Display Python and system information for debugging
+      - name: Display Python and system information
+        run: |
+          python --version
+          pip list
+          uname -a
+
+    # Run the Python script
+      - name: Run Python script
+        run: |
+          cd requirements/
+          python test_spade.py
