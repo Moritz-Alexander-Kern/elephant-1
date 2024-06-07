@@ -1,4 +1,4 @@
-name: Compile fim.cpp on macOS
+name: Test macOS
 
 on:
   push:
