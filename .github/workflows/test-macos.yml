@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.10', 3.11]
-        os: [macos-11, macos-12, macos-13]
+        os: [macos-11, macos-12, macos-13,macos-14]
       fail-fast: false
 
     steps:
@@ -27,17 +27,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-            # brew install libomp llvm
-
-            #export CC=/usr/local/opt/llvm/bin/clang
-            #export CXX=/usr/local/opt/llvm/bin/clang++
-            #
-            #export LDFLAGS="-L/usr/local/opt/libomp/lib"
-            #export CPPFLAGS="-I/usr/local/opt/libomp/include"
             pip install --upgrade pip
             pip install -r requirements/requirements.txt
             pip install -i https://test.pypi.org/simple/ elephant-test
-            #pip install .
 
       # Display Python and system information for debugging
       - name: Display Python and system information
