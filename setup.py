@@ -61,7 +61,6 @@ elif platform.system() == "Darwin":
         extra_link_args=[
             '-L' + os.path.join(libomp_dir, 'lib'),  # Link against the OpenMP library
             '-fopenmp',  # Enable OpenMP
-            '-stdlib=libc++',  # Link against libc++
             '-lomp'  # Link with the OpenMP library (typically named libomp)
         ],
         optional=False
