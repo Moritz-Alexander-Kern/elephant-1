@@ -77,7 +77,7 @@ elif platform.system() == "Linux":
             '-Dfim_EXPORTS', '-O3', '-pedantic', '-Wextra',
             '-Weffc++', '-Wunused-result', '-Werror',
             '-fopenmp', '-std=gnu++17'],
-        optional=True
+        optional=False
     )
 
 setup_kwargs = {
