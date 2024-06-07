@@ -399,6 +399,7 @@ uint64_t GetCurrentRSS()
 
 	return static_cast<uint64_t>(resident * sysconf(_SC_PAGE_SIZE));
 #endif
+#if defined(__APPLE__) || defined(__MACH__) // Check if compiling for macOS
     task_vm_info_data_t vmInfo;
     mach_msg_type_number_t infoCount = TASK_VM_INFO_COUNT;
     kern_return_t kr = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t)&vmInfo, &infoCount);
@@ -408,6 +409,7 @@ uint64_t GetCurrentRSS()
         return 0;
     }
     return static_cast<uint64_t>(vmInfo.phys_footprint);
+#endif
 }
 
 std::string GetMemString()
